@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613592515055",
+    "project_id": "reactnativepractice1",
+    "storage_bucket": "reactnativepractice1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613592515055:android:bf9dad18a2b812bf90b61a",
+        "android_client_info": {
+          "package_name": "com.practice1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj9spuaXILwoeeQUqpX3O_qUzUvYQi4WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
