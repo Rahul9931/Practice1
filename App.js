@@ -9,6 +9,7 @@ import ContactUs from './App/screens/Contactus';
 import CurrencyScreen from './App/screens/currency';
 import LanguageScreen from './App/screens/Language';
 import SettingScreen from './App/screens/setting';
+import ProductPage from './App/screens/Product Details';
 
 
 const App = ()=>{
@@ -21,7 +22,8 @@ const App = ()=>{
             {/* <ContactUs/> */}
             {/* <CurrencyScreen/> */}
             {/* <LanguageScreen/> */}
-            <SettingScreen/>
+            {/* <SettingScreen/> */}
+            <ProductPage/>
         </View>
         </GestureHandlerRootView>
     )
