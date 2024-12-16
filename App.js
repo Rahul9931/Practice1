@@ -11,21 +11,14 @@ import LanguageScreen from './App/screens/Language';
 import SettingScreen from './App/screens/setting';
 import ProductPage from './App/screens/Product Details';
 import SignInScreen from './App/screens/SignIn';
+import Map from './App/component/Map';
 
 
 const App = ()=>{
     return(
         <GestureHandlerRootView style={{ flex: 1 }}>
         <View style={{flex:1}}>
-            {/* <ImageSlider/> */}
-            {/* <FirebaseStore/> */}
-            {/* <CategoryScreen/> */}
-            {/* <ContactUs/> */}
-            {/* <CurrencyScreen/> */}
-            {/* <LanguageScreen/> */}
-            {/* <SettingScreen/> */}
-            {/* <ProductPage/> */}
-            <SignInScreen/>
+            <Map/>
         </View>
         </GestureHandlerRootView>
     )
