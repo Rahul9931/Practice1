@@ -10,6 +10,7 @@ import CurrencyScreen from './App/screens/currency';
 import LanguageScreen from './App/screens/Language';
 import SettingScreen from './App/screens/setting';
 import ProductPage from './App/screens/Product Details';
+import SignInScreen from './App/screens/SignIn';
 
 
 const App = ()=>{
@@ -23,7 +24,8 @@ const App = ()=>{
             {/* <CurrencyScreen/> */}
             {/* <LanguageScreen/> */}
             {/* <SettingScreen/> */}
-            <ProductPage/>
+            {/* <ProductPage/> */}
+            <SignInScreen/>
         </View>
         </GestureHandlerRootView>
     )

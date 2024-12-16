@@ -88,6 +88,10 @@ android {
     }
     signingConfigs {
         debug {
+            // storeFile file('RNPractice1.keystore')
+            // storePassword 'practice1'
+            // keyAlias 'practice1'
+            // keyPassword 'practice1'
             storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'

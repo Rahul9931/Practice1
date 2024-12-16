@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "613592515055",
     "project_id": "reactnativepractice1",
-    "storage_bucket": "reactnativepractice1.appspot.com"
+    "storage_bucket": "reactnativepractice1.firebasestorage.app"
   },
   "client": [
     {
@@ -12,7 +12,20 @@
           "package_name": "com.practice1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "613592515055-su00arjbh04ul39l6b2ppugucuplv2bi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.practice1",
+            "certificate_hash": "39556bb061bf6708ebf30ebeeed7bced24fc858a"
+          }
+        },
+        {
+          "client_id": "613592515055-htvtpmve5a8vpu6c2kb8bii16u98s3p7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDj9spuaXILwoeeQUqpX3O_qUzUvYQi4WI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613592515055-htvtpmve5a8vpu6c2kb8bii16u98s3p7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
