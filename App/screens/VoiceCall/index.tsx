@@ -23,8 +23,8 @@ import { getPermission } from '../../helper/helper';
 
 
 // Define basic information
-const appId = 'd5888e34cc114db89385221e45615dcc';
-const token = '007eJxTYMhWab7DskFm1fX5wpckv6vssftcwWx/7x1f5cGJoTnLOZYpMKSYWlhYpBqbJCcbGpqkJFlYGluYGhkZppqYmhmapiQnty/JTm8IZGRwPHOAlZEBAkF8FoaS1OISBgYAKwMfPg==';
+const appId = 'app_id';
+const token = 'temp_token';
 const channelName = 'test';
 const uid = 0; // Local user Uid, no need to modify
 
