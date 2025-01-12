@@ -1,141 +1,123 @@
 import React, { useState } from 'react';
-import Route from './App/navigation/Route';
-import { Text, View } from 'react-native';
-import VoiceTest from './App/component/voice_recognition/VoiceTest';
-import SpeechToText from './App/component/voice_recognition/VoiceRecognition';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import {
+  PanGestureHandler,
+  GestureHandlerRootView,
+} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  runOnJS,
+} from 'react-native-reanimated';
+
+interface Item {
+  id: string;
+  title: string;
+}
 
 const App: React.FC = () => {
-  const [voice,setVoice] = useState('a')
-  return(
-    <View style={[{flex:1, justifyContent:'center',alignItems:'center'}]}>
-      {/* <VoiceTest/> */}
-      <SpeechToText handleVoiceToText={(v)=>setVoice(v)}/>
-        <Text>{voice}</Text>
-    </View>
-  )
+  const [data, setData] = useState<Item[]>([
+    { id: '1', title: 'Email 1' },
+    { id: '2', title: 'Email 2' },
+    { id: '3', title: 'Email 3' },
+    { id: '4', title: 'Email 4' },
+    { id: '5', title: 'Email 5' },
+    { id: '6', title: 'Email 6' },
+    { id: '7', title: 'Email 7' },
+    { id: '8', title: 'Email 8' },
+    { id: '9', title: 'Email 9' },
+    { id: '10', title: 'Email 10' },
+    { id: '11', title: 'Email 11' },
+    { id: '12', title: 'Email 12' },
+    { id: '13', title: 'Email 13' },
+    { id: '14', title: 'Email 14' },
+    { id: '15', title: 'Email 15' },
+    { id: '16', title: 'Email 16' },
+    { id: '17', title: 'Email 17' },
+  ]);
+
+  const handleDelete = (id: string) => {
+    setData((prevData) => prevData.filter((item) => item.id !== id));
+  };
+
+  const RenderItem: React.FC<{ item: Item }> = ({ item }) => {
+    const translateX = useSharedValue(0); // Tracks horizontal movement
+    const opacity = useSharedValue(1); // Controls item opacity for fade effect
+
+    const gestureHandler = useAnimatedGestureHandler({
+      onStart: (_, context: any) => {
+        context.startX = translateX.value;
+      },
+      onActive: (event, context) => {
+        const horizontalSwipe = Math.abs(event.translationX) > Math.abs(event.translationY);
+
+        // Only move horizontally
+        if (horizontalSwipe) {
+          translateX.value = context.startX + event.translationX;
+        }
+      },
+      onEnd: (event) => {
+        // If swipe is greater than threshold, animate out and delete
+        if (Math.abs(event.translationX) > 150) {
+          translateX.value = withSpring(event.translationX > 0 ? 500 : -500, {
+            damping: 15, // Damping for smooth exit
+            stiffness: 100,
+          });
+          opacity.value = withSpring(0, { damping: 20, stiffness: 100 });
+          runOnJS(handleDelete)(item.id);
+        } else {
+          translateX.value = withSpring(0, { damping: 20, stiffness: 100 });
+        }
+      },
+    });
+
+    const animatedStyle = useAnimatedStyle(() => ({
+      transform: [{ translateX: translateX.value }],
+      opacity: opacity.value,
+    }));
+
+    return (
+      <GestureHandlerRootView style={styles.itemContainer}>
+        <PanGestureHandler onGestureEvent={gestureHandler} minDist={10}>
+          <Animated.View style={[styles.item, animatedStyle]}>
+            <Text style={styles.itemText}>{item.title}</Text>
+          </Animated.View>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
+    );
+  };
+
+  return (
+    <FlatList
+      data={data}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <RenderItem item={item} />}
+      style={styles.container}
+    />
+  );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+    padding: 10,
+  },
+  itemContainer: {
+    overflow: 'hidden', // Ensure collapsed items are hidden
+  },
+  item: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 8,
+    elevation: 2,
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#333',
+  },
+});
+
 export default App;
-
-
-// import React, { useEffect, useState } from 'react';
-// import { View, Image, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
-// import Voice from '@react-native-community/voice';
-
-// const App = () => {
-
-//   const [result, setResult] = useState('')
-//   const [isLoading, setLoading] = useState(false)
-
-//   useEffect(() => {
-//     Voice.onSpeechStart = onSpeechStartHandler;
-//     Voice.onSpeechEnd = onSpeechEndHandler;
-//     Voice.onSpeechResults = onSpeechResultsHandler;
-
-//     return () => {
-//       Voice.destroy().then(Voice.removeAllListeners);
-//     }
-//   }, [])
-
-//   const onSpeechStartHandler = (e) => {
-//     console.log("start handler==>>>", e)
-//   }
-//   const onSpeechEndHandler = (e) => {
-//     setLoading(false)
-//     console.log("stop handler", e)
-//   }
-
-//   const onSpeechResultsHandler = (e) => {
-//     let text = e.value[0]
-//     setResult(text)
-//     console.log("speech result handler", e)
-//   }
-
-//   const startRecording = async () => {
-//     setLoading(true)
-//     try {
-//       await Voice.start('en-US')
-//     } catch (error) {
-//       console.log("error raised", error)
-//     }
-//   }
-
-//   const stopRecording = async () => {
-//     try {
-//       setLoading(false)
-//       await Voice.stop()
-//     } catch (error) {
-//       console.log("error raised", error)
-//     }
-//   }
-
-
-//   return (
-//     <View style={styles.container}>
-//       <SafeAreaView>
-//         <Text style={styles.headingText}>Speech Recoginition</Text>
-//         <View style={styles.textInputStyle}>
-//           <TextInput
-//             value={result}
-//             placeholder="your text"
-//             style={{ flex: 1 }}
-//             onChangeText={text => setResult(text)}
-//           />
-//           {isLoading ? <ActivityIndicator size="large" color="red" />
-
-//             :
-            
-//             <TouchableOpacity
-//               onPress={startRecording}
-//             >
-//               <Image
-//                 source={{ uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/microphone.png' }}
-//                 style={{ width: 25, height: 25 }}
-//               />
-//             </TouchableOpacity>}
-//         </View>
-
-//         <TouchableOpacity
-//           style={{
-//             alignSelf: 'center',
-//             marginTop: 24,
-//             backgroundColor: 'red',
-//             padding: 8,
-//             borderRadius: 4
-//           }}
-//           onPress={stopRecording}
-//         >
-//           <Text style={{ color: 'white', fontWeight: 'bold' }}>Stop</Text>
-//         </TouchableOpacity>
-//       </SafeAreaView>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 24
-//   },
-//   headingText: {
-//     alignSelf: 'center',
-//     marginVertical: 26,
-//     fontWeight: 'bold',
-//     fontSize: 26
-//   },
-//   textInputStyle: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     backgroundColor: 'white',
-//     height: 48,
-//     borderRadius: 20,
-//     paddingHorizontal: 16,
-//     shadowOffset: { width: 0, height: 1 },
-//     shadowRadius: 2,
-//     elevation: 2,
-//     shadowOpacity: 0.4
-//   }
-// });
-
-// export default App;
