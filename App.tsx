@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
-import Route from './App/navigation/Route';
-import { Text, View } from 'react-native';
-import VoiceTest from './App/component/voice_recognition/VoiceTest';
-import SpeechToText from './App/component/voice_recognition/VoiceRecognition';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './src/pagination/redux/store';
+import PaginatedList from './src/pagination/PaginatedList';
 
-const App: React.FC = () => {
-  const [voice,setVoice] = useState('a')
-  return(
-    <View style={[{flex:1, justifyContent:'center',alignItems:'center'}]}>
-      {/* <VoiceTest/> */}
-      <SpeechToText handleVoiceToText={(v)=>setVoice(v)}/>
-        <Text>{voice}</Text>
-    </View>
-  )
+const App = () => {
+  return (
+    <Provider store={store}>
+      <PaginatedList />
+    </Provider>
+  );
 };
 
 export default App;
