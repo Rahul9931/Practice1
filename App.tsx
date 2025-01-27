@@ -4,27 +4,46 @@ import store from './src/pagination/redux/store';
 import PaginatedList from './src/pagination/PaginatedList';
 import { StyleSheet, View } from 'react-native';
 import CustomIcon from './src/components/ReusableIcon/CustomIcon';
+// import DownloadableCard from './src/downloadable products/downloadable card';
+import DownloadableCardList from './src/downloadable products/downloadable list';
 
 const App = () => {
-  // List of icon configurations
-  const iconList = [
-    { type: 'MaterialCommunityIcons', name: 'home', size: 32, color: 'blue' },
-    { type: 'MaterialIcons', name: 'search', size: 32, color: 'green' },
-    { type: 'AntDesign', name: 'heart', size: 32, color: 'red' },
-    { type: 'Entypo', name: 'camera', size: 32, color: 'purple' },
+
+  const data = [
+    {
+      id: "1",
+      orderId: "#000000418",
+      title: "Spring Yoga Video",
+      date: "1/19/24",
+      status: "PENDING",
+      downloads: "Unlimited",
+    },
+    {
+      id: "2",
+      orderId: "#000000419",
+      title: "Summer Fitness Guide",
+      date: "2/10/24",
+      status: "COMPLETED",
+      downloads: "5",
+    },
   ];
+
+  const handleArrowClick = (orderId: string) => {
+    console.log("Arrow Clicked", `Order ID: ${orderId}`);
+  };
+
+  // Callback for download button click
+  const handleDownloadClick = (title: string) => {
+    console.log("Download Initiated", `Downloading: ${title}`);
+  };
 
   return (
     <View style={styles.container}>
-      {iconList.map((icon, index) => (
-        <CustomIcon
-          key={index} // Use index as the key (ensure unique list items for best practices)
-          type={icon.type}
-          name={icon.name}
-          size={icon.size}
-          color={icon.color}
-        />
-      ))}
+       <DownloadableCardList
+        data={data}
+        onArrowClick={handleArrowClick} // Pass callback for arrow icon
+        onDownloadClick={handleDownloadClick} // Pass callback for download button
+      />
     </View>
   );
 };
